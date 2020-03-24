@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final routes = <String, WidgetBuilder>{'/': (context) => HomeScreen()};
     for(var category in PageCategory.categories){
-      routes.addEntries(category.pages.map((page)=>MapEntry('${category.name}/${page.name}',page.builder)));
+      routes.addEntries(category.pages.map((page)=>MapEntry('${category.name}/${page.fileName}',page.builder)));
     }
     return MaterialApp(
       //add all pages to route
@@ -97,11 +97,13 @@ class _HomeScreenState extends State<HomeScreen>
                 return (category.pages.length==0)?FlutterLogo():ListView.builder(
                     itemCount: category.pages.length,
                     itemBuilder: (context, index) {
+                      final title = category.pages[index].name;
                       return ListTile(
-                        title: Text(category.pages[index].name),
+                        key: ValueKey(title),
+                        title: Text(title),
                         onTap: () {
                           Navigator.of(context)
-                              .pushNamed('beginner/${category.pages[index].name}');
+                              .pushNamed('beginner/${category.pages[index].fileName}');
                         },
                       );
                     });

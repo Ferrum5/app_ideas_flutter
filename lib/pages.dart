@@ -1,4 +1,5 @@
 import 'package:app_ideas_flutter/beginner/bin2dec.dart';
+import 'package:app_ideas_flutter/beginner/border_radius_previewer.dart';
 import 'package:flutter/widgets.dart';
 
 
@@ -12,8 +13,14 @@ class PageCategory{
         name: 'beginner',
         pages: [
           PageEntry(
-              name: 'bin2dec',
+              name: 'Bin2Dec',
+              fileName: 'bin2dec',
               builder: (context)=>Bin2Dec()
+          ),
+          PageEntry(
+              name: 'Border Radius Previewer',
+              fileName: 'border_radius_previewer',
+              builder: (context)=>BorderRadiusPreviewer()
           ),
         ]),
     PageCategory(
@@ -29,7 +36,7 @@ class PageCategory{
 
 class PageEntry{
   final String name;
+  final String fileName;
   final WidgetBuilder builder;
-  PageEntry({@required this.name, @required this.builder});
-
+  PageEntry({@required this.name, @required this.fileName,@required this.builder});
 }
