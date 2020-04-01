@@ -20,39 +20,21 @@ class BorderRadiusPreviewerPage extends StatefulWidget {
 
 class _BorderRadiusPreviewerPageState extends State<BorderRadiusPreviewerPage> {
 
-  BorderStyle _borderStyle;
-  List<TextEditingController> _controllers;
-
-  @override
-  void initState() {
-    super.initState();
-    _borderStyle = BorderStyle();
-    _controllers = List.generate(8, (i) {
-      final controller = TextEditingController();
-      controller.addListener(() {
-        setState(() {
-          _borderStyle[i] = double.tryParse(controller.text)??0;
-        });
-      });
-      return controller;
-    }, growable: false);
-  }
-
-  @override
-  void dispose() {
-    _controllers.forEach((c)=>c.dispose());
-    super.dispose();
-  }
+  BorderStyle _borderStyle = BorderStyle();
 
   @override
   Widget build(BuildContext context) {
-    final edits = _controllers
-        .map((c) =>
+    final edits = List<int>.generate(8, (i)=>i)
+        .map((i) =>
         SizedBox(
           width: 60,
           height: 40,
           child: TextField(
-            controller: c,
+            onChanged: (text){
+              setState(() {
+                _borderStyle[i] = double.tryParse(text)??0;
+              });
+            } ,
             decoration: InputDecoration(border: OutlineInputBorder()),
             keyboardType: TextInputType.numberWithOptions(
               signed: false,

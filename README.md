@@ -4,4 +4,5 @@ Project [app-ideas](https://github.com/florinpop17/app-ideas) flutter practice
 ### Tier-1: Beginner Projects
 * Bin2Dec
 * Border Radius Previewer
+* Calculator
 

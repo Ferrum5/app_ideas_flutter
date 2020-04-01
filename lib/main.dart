@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'pages.dart';
-
+//main方法
 void main() => runApp(MyApp());
-
+//主Widget
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //这里将首页'/'加入
     final routes = <String, WidgetBuilder>{'/': (context) => HomeScreen()};
     for(var category in PageCategory.categories){
       routes.addEntries(category.pages.map((page)=>MapEntry('${category.name}/${page.fileName}',page.builder)));
     }
     return MaterialApp(
-      //add all pages to route
       routes: routes,
       initialRoute: '/',
       title: 'App ideas flutter',
+      //有initialRoute不写home
     );
   }
 }
@@ -27,7 +28,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
+  //Tab控制器，不使用DefaultTabController自己控制
   TabController _tabController;
+  //当前页下标，用于控制标题栏和底部选中状态
   int _currentTabIndex = 0;
 
   @override
@@ -51,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
+  //底部3按钮
   Widget _buildBottomTabs(BuildContext context) {
     final tabs = [
       Icons.directions_walk,
@@ -65,14 +69,17 @@ class _HomeScreenState extends State<HomeScreen>
                 decoration: BoxDecoration(),
                 child: Center(
                   child: Icon(tabs[i],
+                      //底部选中颜色
                       color: (_currentTabIndex == i)
                           ? Theme.of(context).primaryColor
                           : Colors.black),
                 )),
             onTap: () {
+              //点击切换底部选中状态
               setState(() {
                 _currentTabIndex = i;
               });
+              //切换页面
               _tabController.animateTo(i);
             },
           ),
@@ -103,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen>
                         title: Text(title),
                         onTap: () {
                           Navigator.of(context)
-                              .pushNamed('beginner/${category.pages[index].fileName}');
+                              .pushNamed('${category.name}/${category.pages[index].fileName}');
                         },
                       );
                     });
