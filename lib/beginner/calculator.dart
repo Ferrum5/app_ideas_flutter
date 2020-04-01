@@ -90,14 +90,15 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
         }
         break;
       case opDot:
-        if (digitsInput?.contains('.') == false) {
-          if (digitsInput == null) {
-            digitsInput = '0.';
-          } else {
-            digitsInput += '.';
-          }
+        if(digitsInput == null){
+          digitsInput = '0.';
           setState(() {
-            digitsShow = digitsInput ?? '0';
+            digitsShow = digitsInput;
+          });
+        }else if (!digitsInput.contains('.')){
+          digitsInput += '.';
+          setState(() {
+            digitsShow = digitsInput;
           });
         }
         break;
